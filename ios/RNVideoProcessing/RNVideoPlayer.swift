@@ -332,7 +332,7 @@ class RNVideoPlayer: RCTView {
     
     // start player
     func startPlayer() {
-        self.backgroundColor = UIColor.darkGray
+        self.backgroundColor = UIColor.clear
         
         let movieURL = NSURL(string: _moviePathSource as String)
         

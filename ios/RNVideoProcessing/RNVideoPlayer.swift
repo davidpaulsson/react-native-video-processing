@@ -37,8 +37,6 @@ class RNVideoPlayer: RCTView {
     var _resizeMode = AVLayerVideoGravityResizeAspect
     var onChange: RCTBubblingEventBlock?
     
-    let LOG_KEY: String = "VIDEO_PROCESSING"
-    
     // props
     var playerHeight: NSNumber? {
         set(val) {
@@ -56,7 +54,6 @@ class RNVideoPlayer: RCTView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        playerLayer = AVPlayerLayer.init(player: player)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -347,12 +344,12 @@ class RNVideoPlayer: RCTView {
         player.replaceCurrentItem(with: playerItem)
         
         // MARK - Temporary removing playeLayer, it dublicates video if it's in landscape mode
-        //        playerLayer = AVPlayerLayer(player: player)
-        //        playerLayer!.frame = filterView.bounds
-        //        playerLayer!.videoGravity = self._resizeMode
-        //        playerLayer!.masksToBounds = true
-        //        playerLayer!.removeFromSuperlayer()
-        //        filterView.layer.addSublayer(playerLayer!)
+        playerLayer = AVPlayerLayer(player: player)
+        playerLayer!.frame = filterView.bounds
+        playerLayer!.videoGravity = self._resizeMode
+        playerLayer!.masksToBounds = true
+        playerLayer!.removeFromSuperlayer()
+        filterView.layer.addSublayer(playerLayer!)
         
         print("CHANGED playerframe \(playerLayer), frameAAA \(playerLayer?.frame)")
         self.setNeedsLayout()
@@ -368,7 +365,7 @@ class RNVideoPlayer: RCTView {
         gpuMovie.playAtActualSpeed = true
         gpuMovie.startProcessing()
         
-        gpuMovie.addTarget(self.filterView)
+        // gpuMovie.addTarget(self.filterView)
         if !self.isInitialized {
             self.addSubview(filterView)
             self.createPlayerObservers()

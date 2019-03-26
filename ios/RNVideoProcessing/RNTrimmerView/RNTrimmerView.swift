@@ -40,7 +40,6 @@ class RNTrimmerView: RCTView, ICGVideoTrimmerDelegate {
             }
             let _nVal = newValue! == 1 ? true : false
             if _showTrackerHandle != _nVal {
-                print("CHANGED: showTrackerHandle \(newValue!)");
                 _showTrackerHandle = _nVal
                 self.updateView()
             }
@@ -56,7 +55,6 @@ class RNTrimmerView: RCTView, ICGVideoTrimmerDelegate {
                 let color = NumberFormatter().number(from: newValue! as String)
                 let formattedColor = RCTConvert.uiColor(color)
                 if formattedColor != nil {
-                    print("CHANGED: trackerHandleColor: \(newValue!)")
                     self._trackerHandleColor = formattedColor!
                     self.updateView();
                 }
